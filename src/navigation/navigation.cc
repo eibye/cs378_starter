@@ -90,6 +90,12 @@ void Navigation::ObservePointCloud(const vector<Vector2f>& cloud,
 
 void Navigation::Run() {
   // Create Helper functions here
+  AckermannCurvatureDriveMsg message = f1tenth_course::AckermannCurvatureDriveMsg();
+  message.velocity = 1.0;
+  message.curvature = 1.0;
+  drive_pub_.publish(message);
+
+
   // Milestone 1 will fill out part of this class.
   // Milestone 3 will complete the rest of navigation.
 }
