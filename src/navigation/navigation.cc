@@ -72,16 +72,29 @@ Navigation::Navigation(const string& map_file, ros::NodeHandle* n) :
   InitRosHeader("base_link", &drive_msg_.header);
 }
 
+//Potentially calculate the three time stages here. We can get delta x here     //////////////////////////////
+//since we have the two locations. Calculate the speeds and accelerations here.
 void Navigation::SetNavGoal(const Vector2f& loc, float angle) {
+    //do we need to update nav_complete_ here? Ask on Friday
+    nav_goal_loc_ = loc;
+    nav_goal_angle_ = angle;
 }
 
 void Navigation::UpdateLocation(const Eigen::Vector2f& loc, float angle) {
+    robot_loc_ = loc;
+    robot_angle_ = angle;
 }
 
+//Assuming this is correct, ask on Friday. Is this relative to where we are now     ///////////////////////////////
+//or where we were when the car started up?
 void Navigation::UpdateOdometry(const Vector2f& loc,
                                 float angle,
                                 const Vector2f& vel,
                                 float ang_vel) {
+    robot_loc_ = loc;
+    robot_angle_ = angle;
+    robot_vel_ = vel;
+    robot_omega_ = ang_vel;
 }
 
 void Navigation::ObservePointCloud(const vector<Vector2f>& cloud,
@@ -101,3 +114,8 @@ void Navigation::Run() {
 }
 
 }  // namespace navigation
+
+/*
+    -Potentially have a global variable to store the next time split
+    -Ask about suddenly introducing deceleration, wouldn't this cause a jerk?
+*/

@@ -87,6 +87,7 @@ void LaserCallback(const sensor_msgs::LaserScan& msg) {
   last_laser_msg_ = msg;
 }
 
+//What is this message relative to? ///////////////////////////////////////////////////////////////////////////////////////
 void OdometryCallback(const nav_msgs::Odometry& msg) {
   if (FLAGS_v > 0) {
     printf("Odometry t=%f\n", msg.header.stamp.toSec());
